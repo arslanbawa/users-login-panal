@@ -46,8 +46,18 @@ import { useHistory } from "react-router-dom";
                     body: JSON.stringify(userInput)
                 } )
                 .then(r=>r.json()).then(res=>{
+                    if(res.message=="User created successfully!"){
+                    
+                        alert(res.message)
+                        history.push("/dashbord");
+                    
+                 }
+                 else{
+                    return(
+                        alert(res)
+                    )
+                 }
                    
-                    history.push("/dashbord");
                 })
              }
              else if(update==true){
