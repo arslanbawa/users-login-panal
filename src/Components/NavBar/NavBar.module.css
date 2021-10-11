@@ -1,0 +1,22 @@
+
+.list_wrapper {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    max-width: 20%;
+    margin: 75px 0 0 60px;
+}
+.list_wrapper {
+    margin-top: 20px;
+}
+
+.link {
+    margin-right: 35px;
+    text-decoration-line: blink;
+    font-size: 24px;
+    background-color: rgb(168, 168, 168);
+    padding: 10px;
+    border-radius: 10px;
+    color: #ffff;
+    margin-bottom: 35px;
+}
