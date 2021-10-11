@@ -4,9 +4,6 @@ import {useSelector} from 'react-redux'
 import CreateUsers from '../CreateUsers/CreateUsers';
 import styles from './ListUsers.module.css'
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
   } from "react-router-dom";
 
@@ -25,6 +22,7 @@ export default function ListUsers() {
         setUsersList(res )
     })
    }, [])
+//    console.log(userList.users?.data[0]?.roles[0]?.name)
 const handleUpdate = (ind) =>{
 setFlage(false)
 setUserIndex(ind)
@@ -36,7 +34,7 @@ const HandleDelete = (id,index) =>{
             
         } )
         .then(r=>r.json()).then(res=>{
-           
+            
             setFlage(true)
         })
         userList.users.data.splice(index,1)
@@ -54,6 +52,7 @@ const HandleDelete = (id,index) =>{
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Working Hours</th>
+                                    <th>user Type</th>
                                     <th>created at</th>
 
                                 </tr>
@@ -66,6 +65,7 @@ const HandleDelete = (id,index) =>{
                                         <td>{element.firstName }</td>
                                         <td>{element.lastName }</td>
                                         <td>{element.working_hours }</td>
+                                        <td>{element.roles[0]?.name}</td>
                                         <td>{element.created_at }</td>  
                                         <td><Link to="#" onClick={()=> handleUpdate(index)} >Update Users</Link></td>
                                         <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     Users</Link></td> 

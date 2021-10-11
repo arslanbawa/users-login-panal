@@ -2,9 +2,12 @@ import React from 'react'
 import {useState } from 'react'
 import styles from './Register.module.css'
 import { useHistory } from "react-router-dom";
+import {useSelector} from 'react-redux'
 
  const Register = () => {
     const history = useHistory();
+    const currentUser = useSelector(state => state.currentUser)
+    // console.log(currentUser.token)
      const [userInput , setUserInput] = useState (
          {
              "firstName" : "",

@@ -12,7 +12,7 @@ export default function Users() {
         <div className={styles.main_wrapper}>
             < NavBar />
             <ListUsers />
-            <Link className={styles.link} to="/users/create">Create Users</Link>
+            <Link className={styles.link} to="/users/create">Create new</Link>
             
 
         </div>
