@@ -1,9 +1,8 @@
 import currentUser from './currentUser'
-import CurrentuserRole from './CurrentuserRole'
 import {combineReducers} from 'redux'
 
 const rootReducer = combineReducers({
-    currentUser,CurrentuserRole
+    currentUser
 })
 
 export default rootReducer
