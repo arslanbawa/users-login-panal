@@ -39,6 +39,8 @@ export default function WorkLogs() {
                <table>
                <thead>
                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                        <th>Log Date</th>
                        <th>Hours</th>
                        <th>Description</th>
@@ -49,6 +51,8 @@ export default function WorkLogs() {
                 userLogs?.workLogs?.data?.map((data,index)=>{
                     return(
                         <tr>
+                            <td>{data.user.firstName}</td>
+                            <td>{data.user.lastName}</td>
                             <td>{data.log_date}</td>
                             <td>{data.hours}</td>
                             <td>{data.description}</td>
