@@ -4,6 +4,8 @@ import LogIn from './Pages/LogIn/LogIn'
 import Register from './Pages/Register/Register'
 import DashBord from './Pages/Dashbord/Dashbord'
 import Users from './Components/Users/Users'
+import CreateWorkLogs from './Components/CreateWorkLogs/CreateWorkLogs'
+import WorkLogs from './Pages/WorkLogs/WorkLogs'
 import CreateUsers from './Components/CreateUsers/CreateUsers'
 
 import {
@@ -25,6 +27,8 @@ function App() {
           <Route exact path="/users/create" component={CreateUsers} />
           <Route exact path="/users/:id" component={CreateUsers} />
           <Route exact path="/users" component={Users} />
+          <Route exact path="/worklogs" component={WorkLogs} />
+          <Route exact path="/createworklogs" component={CreateWorkLogs} />
           
         </Switch>
       </Router>
