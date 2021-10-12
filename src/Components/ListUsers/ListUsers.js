@@ -88,7 +88,7 @@ const HandleDelete = (id,index) =>{
                                             <td>{element.roles[0]?.name}</td>  
                                             <td><Link to="#" onClick={()=> handleUpdate(index)} >Update Users</Link></td>
                                             <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     Users</Link></td> 
-                                            <td><Link to="/worklogs"  >Work Logs</Link></td>
+                                            {/* <td><Link to="/worklogs"  >Work Logs</Link></td> */}
                                         </tr>
                                         </>
                                         )

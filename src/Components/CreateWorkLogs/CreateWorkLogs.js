@@ -25,8 +25,10 @@ import { useSelector} from 'react-redux'
     }
     useEffect(() => {
         if(props.data){
+
             setUserInput({
-                ...props.data
+                ...props.data,
+                logDate:props.data.log_date
             })
             setUpdate(true)
          }
