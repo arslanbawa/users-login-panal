@@ -53,24 +53,46 @@ const HandleDelete = (id,index) =>{
                                     <th>Last Name</th>
                                     <th>Working Hours</th>
                                     <th>user Type</th>
-                                    <th>created at</th>
 
                                 </tr>
                             </thead>
                             <tbody>
+                                
                            {
                                 userList.users?.data?.map((element, index) =>{
-                                    return(
-                                        <tr>
-                                        <td>{element.firstName }</td>
-                                        <td>{element.lastName }</td>
-                                        <td>{element.working_hours }</td>
-                                        <td>{element.roles[0]?.name}</td>
-                                        <td>{element.created_at }</td>  
-                                        <td><Link to="#" onClick={()=> handleUpdate(index)} >Update Users</Link></td>
-                                        <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     Users</Link></td> 
-                                    </tr>
-                                    )
+                                    if(element.roles[0]?.name==="manager"){
+                                        return(<>
+                                            
+                                            <tr>
+                                            <td>{element.firstName }</td>
+                                            <td>{element.lastName }</td>
+                                            <td>{element.working_hours }</td>
+                                            <td>{element.roles[0]?.name}</td> 
+                                            <td><Link to="#" onClick={()=> handleUpdate(index)} >Update Users</Link></td>
+                                            <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     Users</Link></td> 
+                                        </tr>
+                                        </>
+                                        )
+                                    }
+                                })
+                           }
+                           {
+                                userList.users?.data?.map((element, index) =>{
+                                    if(element.roles[0]?.name==="user"){
+                                        return(<>
+                                            
+                                            <tr>
+                                            <td>{element.firstName }</td>
+                                            <td>{element.lastName }</td>
+                                            <td>{element.working_hours }</td>
+                                            <td>{element.roles[0]?.name}</td>  
+                                            <td><Link to="#" onClick={()=> handleUpdate(index)} >Update Users</Link></td>
+                                            <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     Users</Link></td> 
+                                            <td><Link to="/worklogs"  >Work Logs</Link></td>
+                                        </tr>
+                                        </>
+                                        )
+                                    }
                                 })
                            }
                                

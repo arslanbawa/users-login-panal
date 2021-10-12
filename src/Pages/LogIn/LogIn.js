@@ -6,7 +6,7 @@ import { useDispatch} from 'react-redux'
 import allActions from '../../actions'
 
 
- const Register = () => {
+ const LogIn = () => {
     const dispatch = useDispatch()
      const [role , setRole] = useState ("")
      const [userInput , setUserInput] = useState (
@@ -61,4 +61,4 @@ const onSubmit = (e) =>{
         </div>
     )
 }
-export default Register;
+export default LogIn;

@@ -10,6 +10,12 @@ const Role = (role) =>{
         payload: role
     }
 }
+const Id = (id) =>{
+    return {
+        type: "ROLE",
+        payload: id
+    }
+}
 export default {
-    logIN,Role
+    logIN,Role,Id
 }

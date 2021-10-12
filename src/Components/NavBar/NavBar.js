@@ -36,6 +36,7 @@ const handleLogOut = () =>{
     else if(currentUser.role=="user"){
       return(
         <div className={styles.list_wrapper}>
+          <Link  className={styles.link} to="/worklogs"  >Work Logs</Link>
           <Link  className={styles.link} to="/" onClick={()=> handleLogOut} >Log Out</Link>
                  
         </div>
