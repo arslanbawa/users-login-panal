@@ -1,5 +1,5 @@
 import React from 'react'
-import {useState } from 'react'
+import {useState, useEffect } from 'react'
 import styles from './LogIn.module.css'
 import { useHistory } from "react-router-dom";
 import { useDispatch} from 'react-redux'
@@ -8,7 +8,6 @@ import allActions from '../../actions'
 
  const Register = () => {
     const dispatch = useDispatch()
-     const [token , setToken] = useState ("")
      const [role , setRole] = useState ("")
      const [userInput , setUserInput] = useState (
          {
@@ -41,14 +40,15 @@ const onSubmit = (e) =>{
                         alert(res.message)
                     )
                  }else{
-                    dispatch(allActions.LogInAction.logIN(res.token))
-                    setToken(res.token)
-                    // setRole(res.user.roles[0].name)
+                    
+                    dispatch(allActions.LogInAction.logIN(res))
+                    setRole(res.user.roles[0].name)
                     history.push("/dashbord");
                  }
             })
     
 }
+
     return (
         <div className={styles.form_wrapper}>
             <form onSubmit={onSubmit} className={styles.form}>
