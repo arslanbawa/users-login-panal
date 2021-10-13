@@ -10,6 +10,7 @@ import {
 export default function ListUsers() {
     const [flage, setFlage] = useState(true)
     const [userIndex , setUserIndex] =useState("")
+    // const [pageNo , setUPageNo] =useState("")
     const currentUser = useSelector(state => state.currentUser)
     const [userList, setUsersList] = useState([]);
    useEffect(() => {
@@ -20,6 +21,8 @@ export default function ListUsers() {
     } )
     .then(r=>r.json()).then(res=>{
         setUsersList(res )
+        // setUPageNo(res.users.current_page)
+        // console.log(res)
     })
    }, [])
 //    console.log(userList.users?.data[0]?.roles[0]?.name)
@@ -59,44 +62,44 @@ const HandleDelete = (id,index) =>{
                                 </tr>
                             </thead>
                             <tbody>
-                                
-                           {
-                                userList.users?.data?.map((element, index) =>{
-                                    if(element.roles[0]?.name==="manager"){
-                                        return(<>
-                                            
-                                            <tr>
-                                            <td>{element.firstName }</td>
-                                            <td>{element.lastName }</td>
-                                            <td>{element.working_hours }</td>
-                                            <td>{element.roles[0]?.name}</td> 
-                                            <td><Link to="#" onClick={()=> handleUpdate(index)} >Update </Link></td>
-                                            <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     </Link></td> 
-                                        </tr>
-                                        </>
-                                        )
-                                    }
-                                })
-                           }
-                           {
-                                userList.users?.data?.map((element, index) =>{
-                                    if(element.roles[0]?.name==="user"){
-                                        return(<>
-                                            
-                                            <tr>
-                                            <td>{element.firstName }</td>
-                                            <td>{element.lastName }</td>
-                                            <td>{element.working_hours }</td>
-                                            <td>{element.roles[0]?.name}</td>  
-                                            <td><Link to="#" onClick={()=> handleUpdate(index)} >Update </Link></td>
-                                            <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     </Link></td> 
-                                            {/* <td><Link to="/worklogs"  >Work Logs</Link></td> */}
-                                        </tr>
-                                        </>
-                                        )
-                                    }
-                                })
-                           }
+                            {
+                                                userList.users?.data?.map((element, index) =>{
+                                                    if(element.roles[0]?.name==="manager"){
+                                                        return(<>
+                                                            
+                                                            <tr>
+                                                            <td>{element.firstName }</td>
+                                                            <td>{element.lastName }</td>
+                                                            <td>{element.working_hours }</td>
+                                                            <td>{element.roles[0]?.name}</td> 
+                                                            <td><Link to="#" onClick={()=> handleUpdate(index)} >Update </Link></td>
+                                                            <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     </Link></td> 
+                                                        </tr>
+                                                        </>
+                                                        )
+                                                    }
+                                                })
+                                           }
+                                           {
+                                                userList.users?.data?.map((element, index) =>{
+                                                    if(element.roles[0]?.name==="user"){
+                                                        return(<>
+                                                            
+                                                            <tr>
+                                                            <td>{element.firstName }</td>
+                                                            <td>{element.lastName }</td>
+                                                            <td>{element.working_hours }</td>
+                                                            <td>{element.roles[0]?.name}</td>  
+                                                            <td><Link to="#" onClick={()=> handleUpdate(index)} >Update </Link></td>
+                                                            <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     </Link></td> 
+                                                            {/* <td><Link to="/worklogs"  >Work Logs</Link></td> */}
+                                                        </tr>
+                                                        </>
+                                                        )
+                                                    }
+                                                })
+                                           }
+                           
                                
                             </tbody>
                         </table>

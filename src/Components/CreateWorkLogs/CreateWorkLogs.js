@@ -27,19 +27,26 @@ import styles from './CreateWorkLogs.module.css'
     useEffect(() => {
         if(props.data){
 
-            setUserInput({
-                ...props.data,
-                logDate:props.data.log_date
-            })
-            setUpdate(true)
+            
+            if(props.workinHour===false){
+                setUserInput({
+                    ...props.data,
+                    logDate:props.data.log_date
+                })
+                setUpdate(true)
+            }else if(props.workinHour===true){
+                setUserInput({
+                    workingHours:props.data.hours
+                })
+                console.log("jdaskjda" , props.data.hours)
+            }
          }
          
      }, [])
-    console.log(userInput)
 
 const onSubmit = (e) =>{
              e.preventDefault();
-             if(update===false){
+             if(update===false && props.workinHour===false){
             fetch('http://34.210.129.167/api/work-logs',{
                 method: 'POST',
                 headers:{'Content-Type':'application/json',"Authorization" : `Bearer ${currentUser.token}`},
@@ -52,7 +59,6 @@ const onSubmit = (e) =>{
                     )
                  }else{
                     alert(res.message)
-                    console.log("ars",res)
                     history.push("/worklogs");
                  }
             })
@@ -65,15 +71,38 @@ else if(update===true){
         body: JSON.stringify(userInput)
     } )
     .then(r=>r.json()).then(res=>{
-       console.log(res)
         history.push("/dashbord");
     })
  }
+ else if(props.workinHour){
+    fetch(`http://34.210.129.167/api/users/${currentUser.id}/preferred-working-hours`,{
+        method: 'PATCH',
+        headers:{'Content-Type':'application/json',"Authorization" : `Bearer ${currentUser.token}`},
+        
+    } )
+    .then(r=>r.json()).then(res=>{
+        console.log(res)
+            alert(res.message)
+            history.push("/dashbord");
+        
+
+    })
+ }
+
 }
 
     return (
         <div className={styles.main_wrapper} >
             <form onSubmit={onSubmit} >
+                {
+                    props.workinHour?
+                    <>
+                    <label >Hours</label>
+                <input   type="text" placeholder="hours" name="hours" value={userInput.hours} onChange={handleChange} /><br/>
+                <button  type="submit">Submit</button>
+                </>
+                :
+                <>
                 <label >Log Date</label>
                 <input  type="text" placeholder="logDate" name="logDate" value={userInput.logDate} onChange={handleChange} /><br/>
                 <label >Hours</label>
@@ -81,6 +110,9 @@ else if(update===true){
                 <label >Description</label>
                 <input   type="text" placeholder="description" name="description" value={userInput.description} onChange={handleChange} /><br/>
                 <button  type="submit">Submit</button>
+                </>
+                }
+                
             </form>
         </div>
     )

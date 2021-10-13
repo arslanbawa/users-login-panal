@@ -10,6 +10,7 @@ export default function WorkLogs() {
     const currentUser = useSelector(state => state.currentUser)
     const [userLogs, setUsersLogs] = useState([]);
     const [searchOnDate, setSearchOnDate] = useState(false);
+    const [hoursUpdate, setHoursUpdate] = useState (true)
     const [flage, setFlage] = useState(true)
     const [userIndex , setUserIndex] =useState("")
     
@@ -29,17 +30,18 @@ export default function WorkLogs() {
         setUserIndex(ind)
         console.log(ind)
         }
+        const handleHoursUpdate = (ind) =>{
+            setUserIndex(ind)
+            setFlage(false)
+            setHoursUpdate(false)
+        }
         const [userInput , setUserInput] = useState (
             {
                 "from" : "",
                 "to" : "",
             } 
         )
-        const [workinHour , setWorkingHour] = useState (
-            {
-                "workingHours" : ""
-            } 
-        )
+        const [workinHour , setWorkingHour] = useState (true)
         const handleChange = (evt) =>{
             
            const value = evt.target.value;
@@ -64,29 +66,6 @@ export default function WorkLogs() {
            })
       }
     
-    //    const handleHoursChange = (evt) =>{
-    //     const value = evt.target.value;
-    //     setWorkingHour({
-    //            ...workinHour,
-    //            [evt.target.name]: value
-    //          });
-    //    }
-    //    const onSubmitHours = () =>{
-    //     fetch(`http://34.210.129.167/api/users/${currentUser.id}/preferred-working-hours`,{
-    //         method: 'PATCH',
-    //         headers:{'Content-Type':'application/json',"Authorization" : `Bearer ${currentUser.token}`},
-            
-    //     } )
-    //     .then(r=>r.json()).then(res=>{
-    //         console.log(res)
-    //         if(res.success){
-    //             alert(res.message)
-    //         }
-
-    //     })  
-    //    }
-      
-    //   console.log(workinHour)
     return (
         <div >
             <div className={styles.link_wrapper}>
@@ -129,7 +108,7 @@ export default function WorkLogs() {
                                 <td>{data.user.firstName}</td>
                                 <td>{data.user.lastName}</td>
                                 <td>{data.log_date}</td>
-                                <td className={styles.green_hours} >{data.hours}</td>
+                                <td  ><Link className={styles.green_hours} to="#" onClick={ () =>handleHoursUpdate(index) } >{data.hours}</Link></td>
                                 <td>{data.description}</td>
                                 <td><Link to="#" onClick={()=> handleUpdate(index)} >Update Logs</Link></td>
                             </tr>
@@ -141,7 +120,7 @@ export default function WorkLogs() {
                                 <td>{data.user.firstName}</td>
                                 <td>{data.user.lastName}</td>
                                 <td>{data.log_date}</td>
-                                <td  className={styles.red_hours}>{data.hours}</td>
+                                <td  className={styles.red_hours}><Link className={styles.red_hours} to="#" onClick={ () =>handleHoursUpdate(index) } >{data.hours}</Link></td>
                                 <td>{data.description}</td>
                                 <td><Link to="#" onClick={()=> handleUpdate(index)} >Update Logs</Link></td>
                             </tr>
@@ -158,7 +137,7 @@ export default function WorkLogs() {
                                 <td>{data.user.firstName}</td>
                                 <td>{data.user.lastName}</td>
                                 <td>{data.log_date}</td>
-                                <td  className={styles.green_hours}>{data.hours}</td>
+                                <td  ><Link className={styles.green_hours} to="#" onClick={ () =>handleHoursUpdate(index) } >{data.hours}</Link></td>
                                 <td>{data.description}</td>
                                 <td><Link to="#" onClick={()=> handleUpdate(index)} >Update Logs</Link></td>
                             </tr>
@@ -170,7 +149,7 @@ export default function WorkLogs() {
                                 <td>{data.user.firstName}</td>
                                 <td>{data.user.lastName}</td>
                                 <td>{data.log_date}</td>
-                                <td className={styles.red_hours} >{data.hours} </td>
+                                <td  ><Link className={styles.red_hours} to="#" onClick={ () =>handleHoursUpdate(index) } >{data.hours}</Link> </td>
                                 <td>{data.description}</td>
                                 <td><Link to="#" onClick={()=> handleUpdate(index)} >Update Logs</Link></td>
                             </tr>
@@ -181,15 +160,12 @@ export default function WorkLogs() {
             }
                </tbody>
            </table>
-           {/* <div onSubmit={onSubmitHours}>
-           <form>
-           <input  name="workingHours" value={workinHour.workingHours} onChange={handleHoursChange}  />
-           <button>ok</button>
-           </form>
-           </div> */}
            </>
            :
+           hoursUpdate?
            <CreateWorkLogs data={userLogs?.workLogs?.data[userIndex]} />
+           :
+           <CreateWorkLogs data={userLogs?.workLogs?.data[userIndex]} workinHour={workinHour} />
            }
         </div>
     )

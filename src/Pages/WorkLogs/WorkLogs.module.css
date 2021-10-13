@@ -1,8 +1,10 @@
 .red_hours{
     color: red;
+    background-color: #fff;
 }
 .green_hours{
     color: green;
+    background-color: #fff;
 }
 .form_flex{
     display: flex;
