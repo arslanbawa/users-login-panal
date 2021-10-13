@@ -14,7 +14,7 @@ const handleLogOut = () =>{
   dispatch(allActions.LogOutAction.logOut("LOG_OUT"))
 }
 
-    if(currentUser.role=="admin"){
+    if(currentUser.role==="admin"){
       return(
         <div className={styles.list_wrapper}>
           <Link  className={styles.link} to="/register" >Manage Managers</Link>
@@ -24,7 +24,7 @@ const handleLogOut = () =>{
         </div>
       )
     }
-    else if(currentUser.role=="manager"){
+    else if(currentUser.role==="manager"){
       return(
         <div className={styles.list_wrapper}>
           <Link  className={styles.link} to="/users" >Manage Users</Link>
@@ -33,7 +33,7 @@ const handleLogOut = () =>{
         </div>
       )
     }
-    else if(currentUser.role=="user"){
+    else if(currentUser.role==="user"){
       return(
         <div className={styles.list_wrapper}>
           <Link  className={styles.link} to="/worklogs"  >Work Logs</Link>

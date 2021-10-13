@@ -1,5 +1,5 @@
 import React from 'react'
-import {useState, useEffect } from 'react'
+import {useState} from 'react'
 import styles from './LogIn.module.css'
 import { useHistory } from "react-router-dom";
 import { useDispatch} from 'react-redux'
@@ -8,7 +8,7 @@ import allActions from '../../actions'
 
  const LogIn = () => {
     const dispatch = useDispatch()
-     const [role , setRole] = useState ("")
+    //  const [role , setRole] = useState ("")
      const [userInput , setUserInput] = useState (
          {
              "email" : "",
@@ -35,14 +35,14 @@ const onSubmit = (e) =>{
                 body: JSON.stringify(userInput)
             } )
             .then(r=>r.json()).then(res=>{
-                 if(res.success==false){
+                 if(res.success===false){
                     return(
                         alert(res.message)
                     )
                  }else{
                     
                     dispatch(allActions.LogInAction.logIN(res))
-                    setRole(res.user.roles[0].name)
+                    // setRole(res.user.roles[0].name)
                     history.push("/dashbord");
                  }
             })

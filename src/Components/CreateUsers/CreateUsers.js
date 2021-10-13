@@ -39,14 +39,14 @@ import { useHistory } from "react-router-dom";
 
     async  function onSubmit (e){
              e.preventDefault();
-             if(update==false){
+             if(update===false){
                 await fetch('http://34.210.129.167/api/users',{
                     method: 'POST',
                     headers:{'Content-Type':'application/json',"Authorization" : `Bearer ${currentUser.token}`},
                     body: JSON.stringify(userInput)
                 } )
                 .then(r=>r.json()).then(res=>{
-                    if(res.message=="User created successfully!"){
+                    if(res.message==="User created successfully!"){
                     
                         alert(res.message)
                         history.push("/dashbord");
@@ -60,7 +60,7 @@ import { useHistory } from "react-router-dom";
                    
                 })
              }
-             else if(update==true){
+             else if(update===true){
                 await fetch(`http://34.210.129.167/api/users/${props.data.id}`,{
                     method: 'PUT',
                     headers:{'Content-Type':'application/json',"Authorization" : `Bearer ${currentUser.token}`},

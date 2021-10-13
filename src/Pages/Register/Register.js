@@ -35,10 +35,15 @@ import {useSelector} from 'react-redux'
                 body: JSON.stringify(userInput)
             } )
             .then(r=>r.json()).then(res=>{
-                if(res.message=="User created successfully!"){
+                if(res.message==="User created successfully!"){
                     
+                    if(currentUser.role==="admin"){
+                        alert(res.message)
+                        history.push("/users");
+                    }else{
                         alert(res.message)
                         history.push("/");
+                    }
                     
                  }
                  else{
@@ -60,7 +65,7 @@ import {useSelector} from 'react-redux'
                 <input className={styles.input} type="text" placeholder="Email" name="email" value={userInput.email} onChange={handleChange} /><br/>
                 <label className={styles.lable}> Password</label>
                 <input className={styles.input} type="text" placeholder="Password" name="password" value={userInput.password} onChange={handleChange} /><br/>
-                <label className={styles.input} className={styles.lable}>Confirm Password</label>
+                <label  className={styles.lable}>Confirm Password</label>
                 <input  className={styles.input}type="text" placeholder="Confirm Password" name="password_confirmation" value={userInput.password_confirmation} onChange={handleChange} /><br/>
                 <button className={styles.button} type="submit">submint</button>
             </form>

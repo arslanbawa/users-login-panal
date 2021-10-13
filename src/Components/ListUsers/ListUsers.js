@@ -53,6 +53,8 @@ const HandleDelete = (id,index) =>{
                                     <th>Last Name</th>
                                     <th>Working Hours</th>
                                     <th>user Type</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
 
                                 </tr>
                             </thead>
@@ -68,8 +70,8 @@ const HandleDelete = (id,index) =>{
                                             <td>{element.lastName }</td>
                                             <td>{element.working_hours }</td>
                                             <td>{element.roles[0]?.name}</td> 
-                                            <td><Link to="#" onClick={()=> handleUpdate(index)} >Update Users</Link></td>
-                                            <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     Users</Link></td> 
+                                            <td><Link to="#" onClick={()=> handleUpdate(index)} >Update </Link></td>
+                                            <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     </Link></td> 
                                         </tr>
                                         </>
                                         )
@@ -86,8 +88,8 @@ const HandleDelete = (id,index) =>{
                                             <td>{element.lastName }</td>
                                             <td>{element.working_hours }</td>
                                             <td>{element.roles[0]?.name}</td>  
-                                            <td><Link to="#" onClick={()=> handleUpdate(index)} >Update Users</Link></td>
-                                            <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     Users</Link></td> 
+                                            <td><Link to="#" onClick={()=> handleUpdate(index)} >Update </Link></td>
+                                            <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     </Link></td> 
                                             {/* <td><Link to="/worklogs"  >Work Logs</Link></td> */}
                                         </tr>
                                         </>

@@ -2,6 +2,7 @@ import React from 'react'
 import {useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import { useSelector} from 'react-redux'
+import styles from './CreateWorkLogs.module.css'
 
 
  const CreateWorkLogs = (props) => {
@@ -38,14 +39,14 @@ import { useSelector} from 'react-redux'
 
 const onSubmit = (e) =>{
              e.preventDefault();
-             if(update==false){
+             if(update===false){
             fetch('http://34.210.129.167/api/work-logs',{
                 method: 'POST',
                 headers:{'Content-Type':'application/json',"Authorization" : `Bearer ${currentUser.token}`},
                 body: JSON.stringify(userInput)
             } )
             .then(r=>r.json()).then(res=>{
-                 if(res.success==false){
+                 if(res.success===false){
                     return(
                         alert(res.message)
                     )
@@ -57,8 +58,8 @@ const onSubmit = (e) =>{
             })
     
 }
-else if(update==true){
-         fetch(`http://34.210.129.167/api/user/15/work-logs/${props.data.id}`,{
+else if(update===true){
+         fetch(`http://34.210.129.167/api/user/${currentUser.id}/work-logs/${props.data.id}`,{
         method: 'PUT',
         headers:{'Content-Type':'application/json',"Authorization" : `Bearer ${currentUser.token}`},
         body: JSON.stringify(userInput)
@@ -71,7 +72,7 @@ else if(update==true){
 }
 
     return (
-        <div >
+        <div className={styles.main_wrapper} >
             <form onSubmit={onSubmit} >
                 <label >Log Date</label>
                 <input  type="text" placeholder="logDate" name="logDate" value={userInput.logDate} onChange={handleChange} /><br/>
