@@ -23,7 +23,6 @@ export default function ListUsers() {
     } )
     .then(r=>r.json()).then(res=>{
         setUsersList(res )
-        console.log(res)
     })
     .catch(err => {
         alert(err)
