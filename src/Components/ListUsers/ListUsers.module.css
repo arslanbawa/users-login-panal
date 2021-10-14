@@ -5,3 +5,13 @@
     align-items: center;
     margin-left: 80px;
 }
+.pageno_wrapper{
+    display: flex;
+    margin-top: 15px;
+    align-self: flex-end;
+}
+
+.pg_btn {
+    margin-right: 20px;
+    padding: 0 30px;
+}

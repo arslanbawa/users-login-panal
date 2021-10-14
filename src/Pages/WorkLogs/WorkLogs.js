@@ -10,10 +10,12 @@ export default function WorkLogs() {
     const currentUser = useSelector(state => state.currentUser)
     const [userLogs, setUsersLogs] = useState([]);
     const [searchOnDate, setSearchOnDate] = useState(false);
-    const [hoursUpdate, setHoursUpdate] = useState (true)
+    // const [hoursUpdate, setHoursUpdate] = useState (true)
+    const hoursUpdate=true;
     const [flage, setFlage] = useState(true)
     const [userIndex , setUserIndex] =useState("")
     const [workinHour , setWorkingHour] = useState (false)
+    
     
     useEffect(() => {
         fetch(`http://34.210.129.167/api/user/${currentUser.id}/work-logs`,{
@@ -27,12 +29,12 @@ export default function WorkLogs() {
        .catch(err => {
         alert(err)
       })
+      // eslint-disable-next-line
       }, [])
     
       const handleUpdate = (ind) =>{
         setFlage(false)
         setUserIndex(ind)
-        console.log(ind)
         
         }
         const handleHoursUpdate = (ind) =>{
@@ -66,7 +68,6 @@ export default function WorkLogs() {
            } )
            .then(r=>r.json()).then(res=>{
             setUsersLogs(res )
-               console.log( "reponse",userLogs)
             setSearchOnDate(true)
 
            })
@@ -111,7 +112,7 @@ export default function WorkLogs() {
                {
                    searchOnDate?
                    userLogs?.workLogs?.map((data,index) => {
-                    if(data.hours=="8"){
+                    if(data.hours===8){
                         return(
                             <tr>
                                 <td>{data.user.firstName}</td>
@@ -140,7 +141,7 @@ export default function WorkLogs() {
                    :
                 userLogs?.workLogs?.data?.map((data,index)=>{
                     
-                    if(data.hours=="8"){
+                    if(data.hours===8){
                         return(
                             <tr>
                                 <td>{data.user.firstName}</td>
@@ -167,6 +168,7 @@ export default function WorkLogs() {
                     }
                 })
             }
+            
                </tbody>
            </table>
            </>

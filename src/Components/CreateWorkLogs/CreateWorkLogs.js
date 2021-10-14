@@ -6,6 +6,7 @@ import styles from './CreateWorkLogs.module.css'
 
 
  const CreateWorkLogs = (props) => {
+    const history = useHistory();
     const currentUser = useSelector(state => state.currentUser)
     const [update, setUpdate] = useState(false)
      const [userInput , setUserInput] = useState (
@@ -13,22 +14,33 @@ import styles from './CreateWorkLogs.module.css'
              "logDate" : "",
              "hours" : "",
              "description" : "",
-             workingHours:""
          } 
      )
-     const history = useHistory();
+     const[updateHours, setUpdateHours] = useState({
+        "workingHours":""
+    })
+   
+     
      const handleChange = (evt) =>{
         const value = evt.target.value;
-        setUserInput({
-            ...userInput,
-            [evt.target.name]: value
-          });
-          
+        
+            setUserInput({
+                ...userInput,
+                [evt.target.name]: value
+                
+              });
     }
+    const handleUpdateHours = (evt) =>{
+        const value = evt.target.value;
+        setUpdateHours({
+            ...updateHours,
+            [evt.target.hours]: value
+            
+          });
+    }
+    console.log(updateHours)
     useEffect(() => {
         if(props.data){
-
-            
             if(props.workinHour===false){
                 setUserInput({
                     ...props.data,
@@ -36,16 +48,18 @@ import styles from './CreateWorkLogs.module.css'
                 })
                 setUpdate(true)
             }else if(props.workinHour===true){
-                setUserInput({
+                setUpdateHours({
+                    ...props.data,
                     workingHours:props.data.hours
                 })
             }
          }
-         
+         // eslint-disable-next-line
      }, [])
 
 const onSubmit = (e) =>{
              e.preventDefault();
+             //Creating new work logs
              if(update===false && props.workinHour===false){
             fetch('http://34.210.129.167/api/work-logs',{
                 method: 'POST',
@@ -62,8 +76,11 @@ const onSubmit = (e) =>{
                     history.push("/worklogs");
                  }
             })
-    
+            .catch(err => {
+                alert(err)
+              })
 }
+//Updating work logs
 else if(update===true){
          fetch(`http://34.210.129.167/api/user/${currentUser.id}/work-logs/${props.data.id}`,{
         method: 'PUT',
@@ -73,12 +90,16 @@ else if(update===true){
     .then(r=>r.json()).then(res=>{
         history.push("/dashbord");
     })
+    .catch(err => {
+        alert(err)
+      })
  }
+ //Updating working hours
  else if(props.workinHour){
     fetch(`http://34.210.129.167/api/users/${currentUser.id}/preferred-working-hours`,{
         method: 'PATCH',
         headers:{'Content-Type':'application/json',"Authorization" : `Bearer ${currentUser.token}`},
-        body:JSON.stringify({workingHours: userInput.workingHours})
+        body:JSON.stringify({workingHours: updateHours.workingHours})
         
     } )
     .then(r=>r.json()).then(res=>{
@@ -87,6 +108,9 @@ else if(update===true){
         
 
     })
+    .catch(err => {
+        alert(err)
+      })
  }
 
 }
@@ -98,7 +122,7 @@ else if(update===true){
                     props.workinHour?
                     <>
                     <label >Pereferd working hours</label>
-                <input   type="text" placeholder="workingHours" name="workingHours" value={userInput.workingHours} onChange={handleChange} /><br/>
+                <input   type="text" placeholder="workingHours" workingHours="workingHours" value={userInput.workingHours} onChange={handleUpdateHours} /><br/>
                 <button  type="submit">Submit</button>
                 </>
                 :
@@ -114,6 +138,7 @@ else if(update===true){
                 }
                 
             </form>
+            
         </div>
     )
 }

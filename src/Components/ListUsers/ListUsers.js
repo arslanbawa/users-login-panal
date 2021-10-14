@@ -3,6 +3,7 @@ import {useEffect,useState} from 'react'
 import {useSelector} from 'react-redux'
 import CreateUsers from '../CreateUsers/CreateUsers';
 import styles from './ListUsers.module.css'
+
 import {
     Link
   } from "react-router-dom";
@@ -10,25 +11,25 @@ import {
 export default function ListUsers() {
     const [flage, setFlage] = useState(true)
     const [userIndex , setUserIndex] =useState("")
-    // const [pageNo , setUPageNo] =useState("")
     const currentUser = useSelector(state => state.currentUser)
     const [userList, setUsersList] = useState([]);
+    const [pageNo, setPageNo] = useState(1)
+    
    useEffect(() => {
-     fetch('http://34.210.129.167/api/users',{
+     fetch(`http://34.210.129.167/api/users?page=${pageNo}`,{
         method: 'GET',
         headers:{'Content-Type':'application/json',"Authorization" : `Bearer ${currentUser.token}`},
         
     } )
     .then(r=>r.json()).then(res=>{
         setUsersList(res )
-        // setUPageNo(res.users.current_page)
-        // console.log(res)
+        console.log(res)
     })
     .catch(err => {
         alert(err)
       })
-   }, [])
-//    console.log(userList.users?.data[0]?.roles[0]?.name)
+      // eslint-disable-next-line
+   }, [pageNo])
 const handleUpdate = (ind) =>{
 setFlage(false)
 setUserIndex(ind)
@@ -43,7 +44,20 @@ const HandleDelete = (id,index) =>{
             
             setFlage(true)
         })
+        .catch(err => {
+            alert(err)
+          })
         userList.users.data.splice(index,1)
+}
+const handleIncremet = () =>{
+    if(pageNo>0){
+        setPageNo(pageNo+1)
+    }
+}
+const handleDecrement =() =>{
+    if(pageNo>0){
+        setPageNo(pageNo-1)
+    }
 }
 
     return (
@@ -66,53 +80,58 @@ const HandleDelete = (id,index) =>{
                             </thead>
                             <tbody>
                             {
-                                                userList.users?.data?.map((element, index) =>{
-                                                    if(element.roles[0]?.name==="manager"){
-                                                        return(<>
+                               userList.users?.data?.map((element, index) =>{
+                                 if(element.roles[0]?.name==="manager"){
+                                    return(
+                                        <>
+                                                                
+                                            <tr>
+                                                <td>{element.firstName }</td>
+                                                <td>{element.lastName }</td>
+                                                <td>{element.working_hours }</td>
+                                                <td>{element.roles[0]?.name}</td> 
+                                                <td><Link to="#" onClick={()=> handleUpdate(index)} >Update </Link></td>
+                                                <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     </Link></td> 
+                                            </tr>
+                                        </>
+                                        )
+                                    }
+                                    return true
+                                     })
+                                     
+                                    }
+                                     {
+                                        userList.users?.data?.map((element, index) =>{
+                                             if(element.roles[0]?.name==="user"){
+                                                return(<>
                                                             
-                                                            <tr>
-                                                            <td>{element.firstName }</td>
-                                                            <td>{element.lastName }</td>
-                                                            <td>{element.working_hours }</td>
-                                                            <td>{element.roles[0]?.name}</td> 
-                                                            <td><Link to="#" onClick={()=> handleUpdate(index)} >Update </Link></td>
-                                                            <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     </Link></td> 
-                                                        </tr>
-                                                        </>
-                                                        )
-                                                    }
-                                                })
-                                           }
-                                           {
-                                                userList.users?.data?.map((element, index) =>{
-                                                    if(element.roles[0]?.name==="user"){
-                                                        return(<>
-                                                            
-                                                            <tr>
-                                                            <td>{element.firstName }</td>
-                                                            <td>{element.lastName }</td>
-                                                            <td>{element.working_hours }</td>
-                                                            <td>{element.roles[0]?.name}</td>  
-                                                            <td><Link to="#" onClick={()=> handleUpdate(index)} >Update </Link></td>
-                                                            <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     </Link></td> 
-                                                            {/* <td><Link to="/worklogs"  >Work Logs</Link></td> */}
-                                                        </tr>
-                                                        </>
-                                                        )
-                                                    }
-                                                })
-                                           }
-                           
-                               
+                                                    <tr>
+                                                        <td>{element.firstName }</td>
+                                                        <td>{element.lastName }</td>
+                                                        <td>{element.working_hours }</td>
+                                                        <td>{element.roles[0]?.name}</td>  
+                                                        <td><Link to="#" onClick={()=> handleUpdate(index)} >Update </Link></td>
+                                                        <td><Link to="#" onClick={()=> HandleDelete(element.id,index)} >Delate     </Link></td> 
+                                                    </tr>
+                                                    </>
+                                                    )
+                                                }
+                                                  return true
+                                                }) 
+                                           
+                                            } 
+                                           
                             </tbody>
                         </table>
                 </>
                 :
                 <CreateUsers data={userList.users.data[userIndex]} />
-
-            }
-            
-                        
+            }    
+            <div className={styles.pageno_wrapper}>
+            <button className={styles.pg_btn} onClick={handleDecrement}>-</button>
+            <p className={styles.pg_btn}>{pageNo}</p>
+            <button className={styles.pg_btn}onClick={handleIncremet}>+</button>
+                </div>         
         </div>
     )
 }

@@ -7,7 +7,6 @@ import {useSelector} from 'react-redux'
  const Register = () => {
     const history = useHistory();
     const currentUser = useSelector(state => state.currentUser)
-    // console.log(currentUser.token)
      const [userInput , setUserInput] = useState (
          {
              "firstName" : "",
@@ -22,13 +21,11 @@ import {useSelector} from 'react-redux'
         setUserInput({
             ...userInput,
             [evt.target.name]: value
-          });
-          
+          });     
     }
 
     async  function onSubmit (e){
              e.preventDefault();
-
             await fetch('http://34.210.129.167/api/register',{
                 method: 'POST',
                 headers:{'Content-Type':'application/json'},
@@ -36,15 +33,13 @@ import {useSelector} from 'react-redux'
             } )
             .then(r=>r.json()).then(res=>{
                 if(res.message==="User created successfully!"){
-                    
                     if(currentUser.role==="admin"){
                         alert(res.message)
                         history.push("/users");
                     }else{
                         alert(res.message)
                         history.push("/");
-                    }
-                    
+                    } 
                  }
                  else{
                     return(
@@ -52,7 +47,9 @@ import {useSelector} from 'react-redux'
                     )
                  }
             })
-    
+            .catch(err => {
+                alert(err)
+              })
 }
     return (
         <div className={styles.form_wrapper}>

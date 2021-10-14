@@ -16,6 +16,6 @@ const Id = (id) =>{
         payload: id
     }
 }
-export default {
-    logIN,Role,Id
-}
+const exportObjects={    logIN,
+    Role,Id}
+export default exportObjects

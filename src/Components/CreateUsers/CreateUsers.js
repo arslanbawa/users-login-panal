@@ -1,7 +1,6 @@
 import React from 'react'
 import {useState, useEffect } from 'react'
 import {useSelector} from 'react-redux'
-// import styles from './Register.module.css'
 import { useHistory } from "react-router-dom";
 
  const CreateUsers = (props) => {
@@ -26,19 +25,19 @@ import { useHistory } from "react-router-dom";
             })
             setUpdate(true)
          }
-         
+         // eslint-disable-next-line
      }, [])
      const handleChange = (evt) =>{
         const value = evt.target.value;
         setUserInput({
             ...userInput,
             [evt.target.name]: value
-          });
-          
+          });    
     }
 
     async  function onSubmit (e){
              e.preventDefault();
+             //Create New User
              if(update===false){
                 await fetch('http://34.210.129.167/api/users',{
                     method: 'POST',
@@ -47,19 +46,20 @@ import { useHistory } from "react-router-dom";
                 } )
                 .then(r=>r.json()).then(res=>{
                     if(res.message==="User created successfully!"){
-                    
                         alert(res.message)
-                        history.push("/dashbord");
-                    
+                        history.push("/dashbord"); 
                  }
                  else{
                     return(
                         alert(res)
                     )
-                 }
-                   
+                 } 
                 })
+                .catch(err => {
+                    alert(err)
+                  })
              }
+             //Updating User
              else if(update===true){
                 await fetch(`http://34.210.129.167/api/users/${props.data.id}`,{
                     method: 'PUT',
@@ -71,8 +71,7 @@ import { useHistory } from "react-router-dom";
                     history.push("/dashbord");
                 })
              }
-    
-}
+    }
     return (
         <div >
             <form onSubmit={onSubmit} >

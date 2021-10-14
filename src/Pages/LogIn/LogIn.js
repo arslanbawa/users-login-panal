@@ -8,7 +8,6 @@ import allActions from '../../actions'
 
  const LogIn = () => {
     const dispatch = useDispatch()
-    //  const [role , setRole] = useState ("")
      const [userInput , setUserInput] = useState (
          {
              "email" : "",
@@ -21,8 +20,7 @@ import allActions from '../../actions'
         setUserInput({
             ...userInput,
             [evt.target.name]: value
-          });
-          
+          });   
     }
     
 
@@ -42,10 +40,12 @@ const onSubmit = (e) =>{
                  }else{
                     
                     dispatch(allActions.LogInAction.logIN(res))
-                    // setRole(res.user.roles[0].name)
                     history.push("/dashbord");
                  }
             })
+            .catch(err => {
+                alert(err)
+              })
     
 }
 
