@@ -13,6 +13,7 @@ export default function WorkLogs() {
     const [hoursUpdate, setHoursUpdate] = useState (true)
     const [flage, setFlage] = useState(true)
     const [userIndex , setUserIndex] =useState("")
+    const [workinHour , setWorkingHour] = useState (false)
     
     useEffect(() => {
         fetch(`http://34.210.129.167/api/user/${currentUser.id}/work-logs`,{
@@ -23,17 +24,22 @@ export default function WorkLogs() {
        .then(r=>r.json()).then(res=>{
            setUsersLogs(res )
        })
+       .catch(err => {
+        alert(err)
+      })
       }, [])
     
       const handleUpdate = (ind) =>{
         setFlage(false)
         setUserIndex(ind)
         console.log(ind)
+        
         }
         const handleHoursUpdate = (ind) =>{
             setUserIndex(ind)
             setFlage(false)
-            setHoursUpdate(false)
+            
+            setWorkingHour(true)
         }
         const [userInput , setUserInput] = useState (
             {
@@ -41,7 +47,7 @@ export default function WorkLogs() {
                 "to" : "",
             } 
         )
-        const [workinHour , setWorkingHour] = useState (true)
+        
         const handleChange = (evt) =>{
             
            const value = evt.target.value;
@@ -64,6 +70,9 @@ export default function WorkLogs() {
             setSearchOnDate(true)
 
            })
+           .catch(err => {
+            alert(err)
+          })
       }
     
     return (
@@ -163,7 +172,7 @@ export default function WorkLogs() {
            </>
            :
            hoursUpdate?
-           <CreateWorkLogs data={userLogs?.workLogs?.data[userIndex]} />
+           <CreateWorkLogs data={userLogs?.workLogs?.data[userIndex]} workinHour={workinHour} />
            :
            <CreateWorkLogs data={userLogs?.workLogs?.data[userIndex]} workinHour={workinHour} />
            }

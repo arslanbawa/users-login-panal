@@ -13,6 +13,7 @@ import styles from './CreateWorkLogs.module.css'
              "logDate" : "",
              "hours" : "",
              "description" : "",
+             workingHours:""
          } 
      )
      const history = useHistory();
@@ -38,7 +39,6 @@ import styles from './CreateWorkLogs.module.css'
                 setUserInput({
                     workingHours:props.data.hours
                 })
-                console.log("jdaskjda" , props.data.hours)
             }
          }
          
@@ -78,10 +78,10 @@ else if(update===true){
     fetch(`http://34.210.129.167/api/users/${currentUser.id}/preferred-working-hours`,{
         method: 'PATCH',
         headers:{'Content-Type':'application/json',"Authorization" : `Bearer ${currentUser.token}`},
+        body:JSON.stringify({workingHours: userInput.workingHours})
         
     } )
     .then(r=>r.json()).then(res=>{
-        console.log(res)
             alert(res.message)
             history.push("/dashbord");
         
@@ -97,8 +97,8 @@ else if(update===true){
                 {
                     props.workinHour?
                     <>
-                    <label >Hours</label>
-                <input   type="text" placeholder="hours" name="hours" value={userInput.hours} onChange={handleChange} /><br/>
+                    <label >Pereferd working hours</label>
+                <input   type="text" placeholder="workingHours" name="workingHours" value={userInput.workingHours} onChange={handleChange} /><br/>
                 <button  type="submit">Submit</button>
                 </>
                 :

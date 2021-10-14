@@ -24,6 +24,9 @@ export default function ListUsers() {
         // setUPageNo(res.users.current_page)
         // console.log(res)
     })
+    .catch(err => {
+        alert(err)
+      })
    }, [])
 //    console.log(userList.users?.data[0]?.roles[0]?.name)
 const handleUpdate = (ind) =>{
