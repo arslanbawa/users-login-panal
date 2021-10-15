@@ -46,7 +46,8 @@ const handleLogOut = () =>{
       }
     }else{
         alert("Plese LogIn first")
-        history.push("/");
+        history.push("/login");
       
     }
+    return true
 }

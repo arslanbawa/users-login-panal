@@ -38,7 +38,6 @@ import styles from './CreateWorkLogs.module.css'
             
           });
     }
-    console.log(updateHours)
     useEffect(() => {
         if(props.data){
             if(props.workinHour===false){
